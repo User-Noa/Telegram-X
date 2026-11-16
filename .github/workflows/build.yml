@@ -97,7 +97,7 @@ jobs:
 
       - name: Build with Gradle
         run: |
-          ./gradlew :app:assembleLatestArm64Release \
+          ./gradlew :app:assembleLatestRelease \
             -Pabi=arm64 \
             --stacktrace --no-daemon --max-workers=2 \
             -Dorg.gradle.jvmargs="-Xmx4g -XX:+UseG1GC" \
