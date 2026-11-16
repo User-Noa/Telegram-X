@@ -117,12 +117,6 @@ jobs:
           cp "$APK_PATH" dist/TelegramX-Custom-arm64.apk
           echo "apk_path=dist/TelegramX-Custom-arm64.apk" >> "$GITHUB_OUTPUT"
 
-      - name: Upload APK Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: TelegramX-Custom-arm64
-          path: dist/TelegramX-Custom-arm64.apk
-
       - name: Create or Update GitHub Release
         uses: softprops/action-gh-release@v2
         if: github.ref == 'refs/heads/main'

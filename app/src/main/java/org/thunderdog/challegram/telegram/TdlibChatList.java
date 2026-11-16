@@ -463,6 +463,9 @@ public final class TdlibChatList implements Comparator<TdlibChatList.Entry> {
   }
 
   private void addChatToList (Entry entry, Tdlib.ChatChange changeInfo) {
+    if (entry != null && entry.effectivePosition != null && entry.effectivePosition.source instanceof TdApi.ChatSourceMtprotoProxy) {
+      return;
+    }
     tdlib.ensureTdlibThread();
     int atIndex;
     synchronized (list) {

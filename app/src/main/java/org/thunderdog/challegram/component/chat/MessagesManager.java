@@ -1422,6 +1422,7 @@ public class MessagesManager implements Client.ResultHandler, MessagesSearchMana
   }
 
   private void insertExtraSponsoredMessages (List<TGMessage> addedItems, boolean fromTop) {
+    if (true) return;
     if (sponsoredMessages == null || sponsoredMessages.messages.length == 0 || sponsoredMessages.messagesBetween == 0) {
       return;
     }
