@@ -583,12 +583,12 @@ public class TGChat implements TdlibStatusManager.HelperTarget, ContentPreview.R
 
   public boolean isPinnedOrSpecial () {
     TdApi.ChatPosition position = getPosition();
-    return position != null && (position.isPinned || position.source != null);
+    return position != null && (position.isPinned || (position.source != null && !(position.source instanceof TdApi.ChatSourceMtprotoProxy)));
   }
 
   public TdApi.ChatSource getSource () {
     TdApi.ChatPosition position = getPosition();
-    return position != null ? position.source : null;
+    return position != null && !(position.source instanceof TdApi.ChatSourceMtprotoProxy) ? position.source : null;
   }
 
   private @Nullable ContentPreview actualPreview () {

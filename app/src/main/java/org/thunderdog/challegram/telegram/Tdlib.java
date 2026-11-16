@@ -3568,6 +3568,9 @@ public class Tdlib implements TdlibProvider, Settings.SettingsChangeListener, Da
       return null;
     TdApi.Chat chat = chat(chatId);
     TdApi.ChatPosition position = ChatPosition.findPosition(chat, chatList);
+    if (position != null && position.source instanceof TdApi.ChatSourceMtprotoProxy) {
+      return null;
+    }
     return position != null ? position.source : null;
   }
 

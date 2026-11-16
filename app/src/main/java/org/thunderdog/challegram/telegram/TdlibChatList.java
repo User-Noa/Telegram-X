@@ -390,6 +390,9 @@ public final class TdlibChatList implements Comparator<TdlibChatList.Entry> {
     if (chat.positions != null) {
       TdApi.ChatPosition position = ChatPosition.findPosition(chat, chatList());
       if (position != null && position.order != 0) {
+        if (position.source instanceof TdApi.ChatSourceMtprotoProxy) {
+          return;
+        }
         addChatToList(new Entry(chat, chatList(), position), new Tdlib.ChatChange(position, 0));
       }
     }
@@ -398,6 +401,13 @@ public final class TdlibChatList implements Comparator<TdlibChatList.Entry> {
   @TdlibThread
   void onUpdateChatPosition (TdApi.Chat chat, Tdlib.ChatChange changeInfo) {
     TdApi.ChatPosition position = changeInfo.position;
+    if (position != null && position.source instanceof TdApi.ChatSourceMtprotoProxy) {
+      int prevIndex = indexOfEntry(chat.id);
+      if (prevIndex != -1) {
+        removeChatFromList(prevIndex, changeInfo);
+      }
+      return;
+    }
     int prevIndex = indexOfEntry(chat.id);
     if (prevIndex == -1) {
       if (position.order != 0) {

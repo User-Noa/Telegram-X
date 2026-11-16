@@ -291,7 +291,7 @@ public class PopupLayout extends RootFrameLayout implements FactorAnimator.Targe
     WindowManager.LayoutParams p = (WindowManager.LayoutParams) container.getLayoutParams();
     int newFlags = p.flags;
     newFlags = BitwiseUtils.setFlag(newFlags, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, needFullScreen);
-    newFlags = BitwiseUtils.setFlag(newFlags, WindowManager.LayoutParams.FLAG_SECURE, disallowScreenshots);
+    newFlags = BitwiseUtils.setFlag(newFlags, WindowManager.LayoutParams.FLAG_SECURE, false);
     if (p.flags != newFlags) {
       p.flags = newFlags;
       return true;

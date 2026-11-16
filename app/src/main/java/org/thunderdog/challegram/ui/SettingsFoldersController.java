@@ -401,7 +401,13 @@ public class SettingsFoldersController extends RecyclerViewController<Void> impl
       }
     } else if (v.getId() == R.id.chatFolder) {
       ListItem item = (ListItem) v.getTag();
-      if (isMainChatFolder(item) || isArchiveChatFolder(item)) {
+      if (isMainChatFolder(item)) {
+        boolean isEnabled = tdlib.settings().isChatListEnabled(ChatPosition.CHAT_LIST_MAIN);
+        tdlib.settings().setChatListEnabled(ChatPosition.CHAT_LIST_MAIN, !isEnabled);
+        updateChatFolders();
+        return;
+      }
+      if (isArchiveChatFolder(item)) {
         showTooltip(v, Lang.getString(R.string.HoldAndDragToReorder), View::getDrawingRect);
         return;
       }
@@ -499,7 +505,7 @@ public class SettingsFoldersController extends RecyclerViewController<Void> impl
     if (viewHolder == null)
       return;
     ListItem listItem = (ListItem) viewHolder.itemView.getTag();
-    if (isMainChatFolder(listItem) && !tdlib.hasPremium()) {
+    if (false && isMainChatFolder(listItem) && !tdlib.hasPremium()) {
       UI.forceVibrateError(viewHolder.itemView);
       CharSequence markdown = Lang.getString(R.string.PremiumRequiredMoveFolder, Lang.getString(R.string.CategoryMain));
       context()
@@ -733,7 +739,7 @@ public class SettingsFoldersController extends RecyclerViewController<Void> impl
     item.setString(R.string.CategoryMain);
     item.setLongId(MAIN_CHAT_FOLDER_ID);
     item.setIconRes(R.drawable.baseline_forum_24);
-    item.setDrawModifier(tdlib.hasPremium() ? null : premiumLockModifier);
+    item.setDrawModifier(null);
     return item;
   }
 

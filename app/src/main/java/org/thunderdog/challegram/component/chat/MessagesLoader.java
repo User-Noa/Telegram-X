@@ -116,11 +116,11 @@ public class MessagesLoader implements Client.ResultHandler {
   private long contextId;
 
   private boolean canShowSponsoredMessage (long chatId) {
-    return tdlib.isChannel(chatId) && !manager.controller().isInForceTouchMode() && !manager.controller().inPreviewMode() && !manager.controller().areScheduledOnly() && !manager.controller().arePinnedMessages();
+    return false;
   }
 
   public void requestSponsoredMessages (long chatId, RunnableData<TdApi.SponsoredMessages> callback) {
-    if (!canShowSponsoredMessage(chatId) || isLoadingSponsoredMessage) {
+    if (true || !canShowSponsoredMessage(chatId) || isLoadingSponsoredMessage) {
       return;
     }
     isLoadingSponsoredMessage = true;

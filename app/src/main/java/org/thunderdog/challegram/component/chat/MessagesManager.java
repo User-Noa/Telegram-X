@@ -1525,6 +1525,7 @@ public class MessagesManager implements Client.ResultHandler, MessagesSearchMana
   }
 
   private void checkSponsoredMessages () {
+    if (true) return;
     if (sponsoredContext != null) {
       insertFirstSponsoredMessage();
       return;
